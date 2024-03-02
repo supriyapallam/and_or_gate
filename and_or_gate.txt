@@ -1,0 +1,41 @@
+//Design Code
+module and_gate(output out, input in1,in2);
+assign out= in1 & in2;
+endmodule
+module or_gate(output out, input in1,in2);
+  assign out= in1|in2;
+endmodule
+//and-or gate
+module and_or_gate(output out,input a,b,c);
+  //Instantiation
+  wire out1;
+  and_gate g1(out1,a,b);
+  or_gate g2(out,out1,c);
+endmodule
+  
+  //Test Bench Code
+  module test();
+  reg a,b,c;
+  wire out;
+  and_or_gate DUT(out,a,b,c);
+  integer i;
+  initial
+    begin
+      for(i=0;i<8;i=i+1)
+      begin
+        {a,b,c}=i;
+        #10;
+      end
+    end
+  initial
+    begin
+      $dumpfile("test.vcd");
+      $dumpvars(1);
+    end
+  initial
+    begin
+      $monitor("a=%d0,b=%d0,c=%d0,out=%d0",a,b,c,out);
+    end
+endmodule
+      
+  
